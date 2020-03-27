@@ -4,7 +4,7 @@ terraform {
 
 provider "aws" {
   version = ">= 2.28.1"
-  region  = var.region
+  region  = "us-east-2"
 }
 
 provider "random" {
