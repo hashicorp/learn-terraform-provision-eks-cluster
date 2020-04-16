@@ -37,7 +37,6 @@ data "aws_eks_cluster_auth" "cluster" {
   name = module.eks.cluster_id
 }
   
-  
 # # Kubernetes provider
 # # The Terraform Kubernetes Provider configuration below is used as a learning reference only. 
 # # It references the variables and resources provisioned in this file. 
