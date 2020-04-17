@@ -36,17 +36,3 @@ data "aws_eks_cluster" "cluster" {
 data "aws_eks_cluster_auth" "cluster" {
   name = module.eks.cluster_id
 }
-  
-# # Kubernetes provider
-# # The Terraform Kubernetes Provider configuration below is used as a learning reference only. 
-# # It references the variables and resources provisioned in this file. 
-# # We recommend you put this in another file -- so you can have a more modular configuration.
-# # https://learn.hashicorp.com/terraform/kubernetes/provision-eks-cluster#optional-configure-terraform-kubernetes-provider
-# # To learn how to schedule deployments and services using the provider, go here: ttps://learn.hashicorp.com/terraform/kubernetes/deploy-nginx-kubernetes.
-
-# provider "kubernetes" {
-#   load_config_file       = "false"
-#   host                   = data.aws_eks_cluster.cluster.endpoint
-#   token                  = data.aws_eks_cluster_auth.cluster.token
-#   cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
-# }
