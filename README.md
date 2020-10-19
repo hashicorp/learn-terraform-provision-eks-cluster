@@ -105,7 +105,7 @@ The following command will get the access credentials for your cluster and autom
 configure `kubectl`.
 
 ```shell
-$ aws eks --region us-east-2 update-kubeconfig --name training-eks-sR8eLIil
+$ aws eks --region $(terraform output region) update-kubeconfig --name $(terraform output cluster_name)
 ```
 
 The
