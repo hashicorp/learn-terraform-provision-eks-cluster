@@ -4,14 +4,13 @@ variable "region" {
 }
 
 provider "aws" {
-  version = ">= 2.28.1"
-  region  = "us-east-2"
+  region = "us-east-2"
 }
 
 data "aws_availability_zones" "available" {}
 
 locals {
-  cluster_name = "training-eks-${random_string.suffix.result}"
+  cluster_name = "education-eks-${random_string.suffix.result}"
 }
 
 resource "random_string" "suffix" {
@@ -23,7 +22,7 @@ module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "2.6.0"
 
-  name                 = "training-vpc"
+  name                 = "education-vpc"
   cidr                 = "10.0.0.0/16"
   azs                  = data.aws_availability_zones.available.names
   private_subnets      = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
