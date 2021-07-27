@@ -1,4 +1,11 @@
 terraform {
+  backend "remote" {
+    organization = "Girijas"
+
+    workspaces {
+      name = "learn-terraform-provision-eks-cluster"
+    }
+  }
   required_providers {
     aws = {
       source  = "hashicorp/aws"
