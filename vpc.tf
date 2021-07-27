@@ -3,8 +3,18 @@ variable "region" {
   description = "AWS region"
 }
 
+variable "aws_access_key_id" {
+    description = "AWS Access Key ID"
+}
+
+variable "aws_secret_access_key" {
+    description = "AWS Access Secret Key"
+}
+
 provider "aws" {
   region = "eu-central-1"
+  access_key = var.aws_access_key_id
+  secret_key = var.aws_secret_access_key
 }
 
 data "aws_availability_zones" "available" {}
