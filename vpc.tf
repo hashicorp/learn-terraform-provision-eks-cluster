@@ -4,7 +4,7 @@ variable "region" {
 }
 
 provider "aws" {
-  region = "us-east-2"
+  region = var.region
 }
 
 data "aws_availability_zones" "available" {}
