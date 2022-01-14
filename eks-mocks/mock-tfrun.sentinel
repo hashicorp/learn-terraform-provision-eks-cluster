@@ -1,0 +1,47 @@
+id = "run-AL7Meb45KTgNdEy9"
+created_at = "2022-01-14T03:07:45.212Z"
+message = "Policy Config "
+commit_sha = "e48b23898a6f2c750fd0e818184441d5ce1a78c1"
+speculative = false
+is_destroy = false
+refresh = true
+refresh_only = false
+replace_addrs = null
+target_addrs = null
+
+variables = {
+	"AWS_ACCESS_KEY_ID": {
+		"category":  "env",
+		"sensitive": true,
+	},
+	"AWS_SECRET_ACCESS_KEY": {
+		"category":  "env",
+		"sensitive": false,
+	},
+}
+
+organization = {
+	"name": "Paradigm-City",
+}
+
+workspace = {
+	"auto_apply":  false,
+	"created_at":  "2022-01-14T02:56:49.973Z",
+	"description": "EKS Terraform",
+	"id":          "ws-6pQUbC2ECXG54gTy",
+	"name":        "learn-terraform-provision-eks-cluster",
+	"tags":        [],
+	"vcs_repo": {
+		"branch":             "",
+		"display_identifier": "borninthedark/learn-terraform-provision-eks-cluster",
+		"identifier":         "borninthedark/learn-terraform-provision-eks-cluster",
+		"ingress_submodules": false,
+	},
+	"working_directory": "",
+}
+
+cost_estimate = {
+	"delta_monthly_cost":    "0.0",
+	"prior_monthly_cost":    "0.0",
+	"proposed_monthly_cost": "0.0",
+}
