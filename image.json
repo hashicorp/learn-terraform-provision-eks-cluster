@@ -1,0 +1,34 @@
+
+[
+  {
+    "name": "backend-qa-test",
+    "image": "105882018630.dkr.ecr.us-east-1.amazonaws.com/infocar-backend-qa",
+    "cpu": 512,
+    "memory": 1024,
+    "essential": true,
+    "portMappings": [
+      {
+        "containerPort": 80,
+        "hostPort": 54701
+      }
+    ],
+    "logConfiguration": {
+      "logDriver": "syslog",
+        "Options": {
+          "syslog-address": "testtttt=tcp+tls://logs3.papertrailapp.com:28939",
+          "syslog-tls-skip-verify": "true"
+      }
+    },
+    "Environment Variables":{
+      "APP_DEBUG" :	true,
+      "APP_ENV"   : "local",
+      "APP_NAME"  : "infocar",
+      "APP_TIMEZONE" : "America/Sao_Paulo",
+      "CORS_ALLOWED_ORIGINS" : "*",
+      "LOG_CHANNEL": "stdout",
+      "LOG_LEVEL": "error",
+      "MAIL_FROM_TEST" : "j_peta@outlook.com",
+      "MAIL_SEND_TEST" : true      
+    }
+  }
+]
