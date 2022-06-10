@@ -46,7 +46,7 @@ module "eks" {
   eks_managed_node_group_defaults = {
     ami_type = "AL2_x86_64"
 
-    # We'll provide
+    # Disabling and using externally provided security groups
     create_security_group = false
   }
 
