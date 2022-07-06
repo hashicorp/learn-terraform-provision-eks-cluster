@@ -22,3 +22,28 @@ resource "helm_release" "kubernetes_dashboard" {
     module.eks.eks_managed_node_groups
   ]
 }
+
+resource "kubernetes_service_account_v1" "admin" {
+  metadata {
+    name      = "admin-user"
+    namespace = "kube-system"
+  }
+}
+
+resource "kubernetes_cluster_role_binding_v1" "admin" {
+  metadata {
+    name = "admin-user"
+  }
+
+  role_ref {
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "ClusterRole"
+    name      = "cluster-admin"
+  }
+
+  subject {
+    kind      = "ServiceAccount"
+    name      = "admin-user"
+    namespace = "kube-system"
+  }
+}
