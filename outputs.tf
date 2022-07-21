@@ -13,11 +13,6 @@ output "cluster_security_group_id" {
   value       = module.eks.cluster_security_group_id
 }
 
-output "aws_auth_configmap_yaml" {
-  description = "Formatted yaml output for base aws-auth configmap containing roles used in cluster node groups/fargate profiles"
-  value       = module.eks.aws_auth_configmap_yaml
-}
-
 output "region" {
   description = "AWS region"
   value       = var.region
