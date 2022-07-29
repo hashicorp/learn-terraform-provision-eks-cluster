@@ -1,38 +1,57 @@
 module "eks" {
-  source          = "terraform-aws-modules/eks/aws"
-  version         = "17.24.0"
+  source  = "terraform-aws-modules/eks/aws"
+  version = "18.26.6"
+
   cluster_name    = local.cluster_name
-  cluster_version = "1.20"
-  subnets         = module.vpc.private_subnets
+  cluster_version = "1.22"
 
-  vpc_id = module.vpc.vpc_id
+  vpc_id     = module.vpc.vpc_id
+  subnet_ids = module.vpc.private_subnets
 
-  workers_group_defaults = {
-    root_volume_type = "gp2"
+  eks_managed_node_group_defaults = {
+    ami_type = "AL2_x86_64"
+
+    attach_cluster_primary_security_group = true
+
+    # Disabling and using externally provided security groups
+    create_security_group = false
   }
 
-  worker_groups = [
-    {
-      name                          = "worker-group-1"
-      instance_type                 = "t2.small"
-      additional_userdata           = "echo foo bar"
-      additional_security_group_ids = [aws_security_group.worker_group_mgmt_one.id]
-      asg_desired_capacity          = 2
-    },
-    {
-      name                          = "worker-group-2"
-      instance_type                 = "t2.medium"
-      additional_userdata           = "echo foo bar"
-      additional_security_group_ids = [aws_security_group.worker_group_mgmt_two.id]
-      asg_desired_capacity          = 1
-    },
-  ]
-}
+  eks_managed_node_groups = {
+    one = {
+      name = "node-group-1"
 
-data "aws_eks_cluster" "cluster" {
-  name = module.eks.cluster_id
-}
+      instance_types = ["t3.small"]
 
-data "aws_eks_cluster_auth" "cluster" {
-  name = module.eks.cluster_id
+      min_size     = 1
+      max_size     = 3
+      desired_size = 2
+
+      pre_bootstrap_user_data = <<-EOT
+      echo 'foo bar'
+      EOT
+
+      vpc_security_group_ids = [
+        aws_security_group.node_group_one.id
+      ]
+    }
+
+    two = {
+      name = "node-group-2"
+
+      instance_types = ["t3.medium"]
+
+      min_size     = 1
+      max_size     = 2
+      desired_size = 1
+
+      pre_bootstrap_user_data = <<-EOT
+      echo 'foo bar'
+      EOT
+
+      vpc_security_group_ids = [
+        aws_security_group.node_group_two.id
+      ]
+    }
+  }
 }
