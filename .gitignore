@@ -15,7 +15,7 @@ crash.log
 # to change depending on the environment.
 *.tfvars
 .terraform.lock.hcl
-# Ignore override files as they are usually used to override resources locally and so
+# Ignore override files as git update-index --assume-unchangedthey are usually used to override resources locally and so
 # are not checked in
 override.tf
 override.tf.json
