@@ -24,6 +24,7 @@ resource "random_string" "suffix" {
 }
 resource "aws_s3_bucket" "terraform_state" {
   bucket_prefix = "learn-s3-remote-backend-"
+  force_destroy = true  //daca nu pui asta de la inceput, nu vei putea sterge ulterior/
 }
 resource "aws_s3_bucket_acl" "terraform_state_acl" {
   bucket = aws_s3_bucket.terraform_state.id
