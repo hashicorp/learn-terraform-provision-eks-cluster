@@ -27,10 +27,6 @@ module "eks" {
       max_size     = 3
       desired_size = 2
 
-      pre_bootstrap_user_data = <<-EOT
-      echo 'foo bar'
-      EOT
-
       vpc_security_group_ids = [
         aws_security_group.node_group_one.id
       ]
@@ -44,10 +40,6 @@ module "eks" {
       min_size     = 1
       max_size     = 2
       desired_size = 1
-
-      pre_bootstrap_user_data = <<-EOT
-      echo 'foo bar'
-      EOT
 
       vpc_security_group_ids = [
         aws_security_group.node_group_two.id
