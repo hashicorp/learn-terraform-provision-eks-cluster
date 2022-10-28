@@ -5,4 +5,5 @@ Terraform configuration files to provision an EKS cluster on AWS.
 
 ## Updates
 
-Customized to work with terraform cloud
+- Customized to work with terraform cloud
+- Testing github workflow with terraform cloud
