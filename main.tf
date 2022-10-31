@@ -18,8 +18,8 @@ provider "aws" {
 provider "helm" {
   kubernetes {
     host                   = module.eks.cluster_endpoint
-    cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)  
-    }
+    cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
+  }
 }
 
 data "aws_availability_zones" "available" {}
@@ -34,5 +34,5 @@ resource "random_string" "suffix" {
 }
 
 module "kube-prometheus-stack" {
-  source ="./modules/kube-prometheus-stack"
+  source = "./modules/kube-prometheus-stack"
 }
