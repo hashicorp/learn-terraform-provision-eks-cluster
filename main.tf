@@ -35,6 +35,6 @@ resource "random_string" "suffix" {
 }
 
 module "kube-prometheus-stack" {
-  source ="./modules/kube-prometehus-stack"
+  source ="./modules/kube-prometheus-stack"
   kube-version = "36.2.0"
 }
