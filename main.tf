@@ -14,6 +14,15 @@ provider "aws" {
   #profile =  "aws101" # Uncomment this line if you are using a local terraform
 }
 
+# Helm provider
+provider "helm" {
+  kubernetes {
+    host                   = module.eks.cluster_endpoint
+    cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
+    token                  = data.aws_eks_cluster_auth.eks.token
+  }
+}
+
 data "aws_availability_zones" "available" {}
 
 locals {
@@ -23,4 +32,9 @@ locals {
 resource "random_string" "suffix" {
   length  = 8
   special = false
+}
+
+module "kube-prometheus-stack" {
+  source ="./modules/kube-prometehus-stack"
+  kube-version = "36.2.0"
 }
