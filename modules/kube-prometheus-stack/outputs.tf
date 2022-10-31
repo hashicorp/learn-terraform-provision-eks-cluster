@@ -1,7 +1,7 @@
 output chart {
-    value = helm_release.helm_chart.chart
+    value = helm_release.kube_prometheus_stack.chart
 }
 
 output status {
-    value = helm_release.helm_chart.status
+    value = helm_release.kube_prometheus_stack.status
 }
