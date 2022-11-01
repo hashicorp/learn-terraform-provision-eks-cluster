@@ -1,0 +1,10 @@
+rbac:
+  create: true
+slack:
+  enabled: true
+  channel: '#development'
+resourcesToWatch:
+  pod: true
+  daemonset: true
+  services: true
+  deployment: true
