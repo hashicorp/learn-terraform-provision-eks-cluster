@@ -12,3 +12,8 @@ variable "slack_app_token" {
   description = "Slack App Token"
 }
 
+variable "cluster_id" {
+  type        = string
+  description = "EKS Cluster ID"
+}
+
