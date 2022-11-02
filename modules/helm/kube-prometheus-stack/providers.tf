@@ -13,11 +13,11 @@ data "tfe_outputs" "eks" {
 
 # Retrieve EKS cluster configuration
 data "aws_eks_cluster" "cluster" {
-  name = data.tfe_outputs.eks.outputs.cluster_id
+  name = data.tfe_outputs.cluster_id
 }
 
 data "aws_eks_cluster_auth" "cluster" {
-  name = data.tfe_outputs.eks.outputs.cluster_id
+  name = data.tfe_outputs.cluster_id
 }
 
 /*provider "kubernetes" {
