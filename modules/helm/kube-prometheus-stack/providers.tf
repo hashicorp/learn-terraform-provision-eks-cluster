@@ -12,7 +12,7 @@ data "terraform_remote_state" "eks" {
     organization = "vigneshragupathy"
 
     workspaces = {
-      name = "learn-terraform-provision-eks-cluster"
+      name = "terraform-eks-prometheus-thanos"
     }
   }
 }
