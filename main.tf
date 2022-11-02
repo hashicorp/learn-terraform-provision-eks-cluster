@@ -26,5 +26,5 @@ resource "random_string" "suffix" {
 }
 
 module "kubewatch" {
-  source = "modules/helm/kubewatch"
+  source = "./modules/helm/kubewatch"
 }
