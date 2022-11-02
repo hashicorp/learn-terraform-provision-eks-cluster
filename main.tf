@@ -9,9 +9,9 @@ provider "kubernetes" {
 }
 
 provider "aws" {
-  region = var.region
-  #shared_credentials_files =  ["~/.aws/aws101_credentials"] # Uncomment this line if you are using a local terraform
-  #profile =  "aws101" # Uncomment this line if you are using a local terraform
+  region                   = var.region
+  #shared_credentials_files = ["~/.aws/aws101_credentials"] # Uncomment this line if you are using a local terraform
+  #profile                  = "aws101"                      # Uncomment this line if you are using a local terraform
 }
 
 data "aws_availability_zones" "available" {}

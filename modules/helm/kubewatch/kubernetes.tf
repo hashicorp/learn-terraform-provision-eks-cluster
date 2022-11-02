@@ -10,7 +10,7 @@
 }*/
 
 # Terraform remote state for backend remote/cloud
-data "terraform_remote_state" "eks" {
+/*data "terraform_remote_state" "eks" {
   backend = "remote"
   config = {
     organization = "vigneshragupathy"
@@ -28,7 +28,7 @@ data "aws_eks_cluster" "cluster" {
 
 data "aws_eks_cluster_auth" "cluster" {
   name = data.terraform_remote_state.eks.outputs.cluster_id
-}
+}*/
 
 /*provider "kubernetes" {
   host                   = data.aws_eks_cluster.cluster.endpoint

@@ -1,4 +1,4 @@
-terraform {
+/*terraform {
   required_providers {
     helm = {
       source  = "hashicorp/helm"
@@ -13,5 +13,5 @@ terraform {
       version = "3.25.0"
     }
   }
-  required_version = "~> 0.14"
-}
+  #required_version = "~> 0.14"
+}*/
