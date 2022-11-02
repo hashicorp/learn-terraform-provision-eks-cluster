@@ -6,15 +6,9 @@
 }*/
 
 # Terraform remote state for backend remote/cloud
-data "terraform_remote_state" "eks" {
-  backend = "remote"
-  config = {
-    organization = "vigneshragupathy"
-
-    workspaces = {
-      name = "terraform-eks-prometheus-thanos"
-    }
-  }
+data "tfe_outputs" "eks" {
+  organization = "vigneshragupathy"
+  workspace    = "terraform-eks-prometheus-thanos"
 }
 
 # Retrieve EKS cluster configuration
