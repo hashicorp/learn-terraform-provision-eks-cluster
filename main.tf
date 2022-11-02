@@ -10,8 +10,8 @@ provider "kubernetes" {
 
 provider "aws" {
   region = var.region
-  #shared_credentials_files =  ["~/.aws/aws101_credentials"] # Uncomment this line if you are using a local terraform
-  #profile =  "aws101" # Uncomment this line if you are using a local terraform
+  #shared_credentials_files = ["~/.aws/aws101_credentials"] # Uncomment this line if you are using a local terraform
+  #profile                  = "aws101"                      # Uncomment this line if you are using a local terraform
 }
 
 data "aws_availability_zones" "available" {}
@@ -23,4 +23,10 @@ locals {
 resource "random_string" "suffix" {
   length  = 8
   special = false
+}
+
+module "kubewatch" {
+  source          = "./modules/helm/kubewatch"
+  slack_app_token = var.slack_app_token
+  cluster_id      = module.eks.cluster_id
 }
