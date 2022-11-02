@@ -41,7 +41,7 @@ data "aws_eks_cluster_auth" "cluster" {
 }*/
 
 data "aws_eks_cluster" "cluster" {
-  name = output.cluster_id
+  name = cluster_id
 }
 
 resource "kubernetes_namespace" "terramino" {
