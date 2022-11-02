@@ -25,8 +25,12 @@ resource "random_string" "suffix" {
   special = false
 }
 
-module "kubewatch" {
+/*module "kubewatch" {
   source          = "./modules/helm/kubewatch"
   slack_app_token = var.slack_app_token
   cluster_id      = module.eks.cluster_id
+}*/
+
+module "kube-prometheus-stack" {
+  source = "./modules/helm/kube-prometheus-stack"
 }
