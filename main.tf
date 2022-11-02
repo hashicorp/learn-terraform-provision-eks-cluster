@@ -27,5 +27,4 @@ resource "random_string" "suffix" {
 
 module "kubewatch" {
   source          = "./modules/helm/kubewatch"
-  slack_app_token = var.slack_app_token
 }
