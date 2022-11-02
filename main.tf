@@ -33,4 +33,5 @@ resource "random_string" "suffix" {
 
 module "kube-prometheus-stack" {
   source = "./modules/helm/kube-prometheus-stack"
+  cluster_id = module.eks.cluster_id
 }
