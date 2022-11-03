@@ -6,18 +6,18 @@
 }*/
 
 # Terraform remote state for backend remote/cloud
-data "tfe_outputs" "remote_state" {
+/*data "tfe_outputs" "remote_state" {
   organization = "vigneshragupathy"
   workspace    = "terraform-eks-prometheus-thanos"
-}
+}*/
 
 # Retrieve EKS cluster configuration
 data "aws_eks_cluster" "cluster" {
-  name = data.tfe_outputs.remote_state.values.cluster_id
+  name = var.cluster_id
 }
 
 data "aws_eks_cluster_auth" "cluster" {
-  name = data.tfe_outputs.remote_state.values.cluster_id
+  name = var.cluster_id
 }
 
 /*provider "kubernetes" {
