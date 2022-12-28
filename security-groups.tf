@@ -1,29 +1,27 @@
-resource "aws_security_group" "node_group_one" {
-  name_prefix = "node_group_one"
+resource "aws_security_group" "nodesec_group1" {
+  name_prefix = "nodesec_group1"
   vpc_id      = module.vpc.vpc_id
 
   ingress {
     from_port = 22
     to_port   = 22
     protocol  = "tcp"
-
     cidr_blocks = [
-      "10.0.0.0/8",
+      "0.0.0.0/0",
     ]
   }
 }
 
-resource "aws_security_group" "node_group_two" {
-  name_prefix = "node_group_two"
+resource "aws_security_group" "nodesec_group2" {
+  name_prefix = "nodesec_group2"
   vpc_id      = module.vpc.vpc_id
 
   ingress {
     from_port = 22
     to_port   = 22
     protocol  = "tcp"
-
     cidr_blocks = [
-      "192.168.0.0/16",
+      "0.0.0.0/0",
     ]
   }
 }
