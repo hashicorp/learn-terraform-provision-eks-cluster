@@ -3,6 +3,14 @@
 
 provider "aws" {
   region = var.region
+
+  default_tags {
+    tags = {
+      OWNER    = "RIZZO_A"
+      CATEGORY = "ENG_ASSESSMENT"
+    }
+  }
+
 }
 
 # Filter out local zones, which are not currently supported 
@@ -15,7 +23,8 @@ data "aws_availability_zones" "available" {
 }
 
 locals {
-  cluster_name = "education-eks-${random_string.suffix.result}"
+  cluster_name = "${var.deploymentPrefix}-cluster"
+  cluster_version = "1.27"
 }
 
 resource "random_string" "suffix" {
@@ -27,13 +36,13 @@ module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "5.0.0"
 
-  name = "education-vpc"
+  name = "${var.deploymentPrefix}-clustervpc"
 
-  cidr = "10.0.0.0/16"
+  cidr = "192.168.0.0/16"
   azs  = slice(data.aws_availability_zones.available.names, 0, 3)
 
-  private_subnets = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
-  public_subnets  = ["10.0.4.0/24", "10.0.5.0/24", "10.0.6.0/24"]
+  private_subnets = ["192.168.1.0/24", "192.168.2.0/24", "192.168.3.0/24"]
+  public_subnets  = ["196.182.32.48/32"]
 
   enable_nat_gateway   = true
   single_nat_gateway   = true
@@ -50,12 +59,18 @@ module "vpc" {
   }
 }
 
+
+# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_node_group#tracking-the-latest-eks-node-group-ami-releases
+data "aws_ssm_parameter" "eks_ami_release_version" {
+  name = "/aws/service/eks/optimized-ami/${local.cluster_version}/amazon-linux-2/recommended/release_version"
+}
+
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "19.15.3"
 
   cluster_name    = local.cluster_name
-  cluster_version = "1.27"
+  cluster_version = local.cluster_version
 
   vpc_id                         = module.vpc.vpc_id
   subnet_ids                     = module.vpc.private_subnets
@@ -68,23 +83,15 @@ module "eks" {
 
   eks_managed_node_groups = {
     one = {
-      name = "node-group-1"
+      name = "${var.deploymentPrefix}-node-group-1"
 
-      instance_types = ["t3.small"]
+      instance_types = ["t3.small"] //c5.metal 
 
-      min_size     = 1
-      max_size     = 3
+      release_version = nonsensitive(data.aws_ssm_parameter.eks_ami_release_version.value)
+
+      min_size     = 3
+      max_size     = 6
       desired_size = 2
-    }
-
-    two = {
-      name = "node-group-2"
-
-      instance_types = ["t3.small"]
-
-      min_size     = 1
-      max_size     = 2
-      desired_size = 1
     }
   }
 }
@@ -114,5 +121,12 @@ resource "aws_eks_addon" "ebs-csi" {
   tags = {
     "eks_addon" = "ebs-csi"
     "terraform" = "true"
+  }
+}
+
+
+resource "kubernetes_namespace" "rizzo" {
+  metadata {
+    name = "rizzo"
   }
 }

@@ -20,3 +20,8 @@ output "cluster_name" {
   description = "Kubernetes Cluster Name"
   value       = module.eks.cluster_name
 }
+
+output "vpc" {
+  description = "VPC ID Output"
+  value       = module.vpc.vpc_arn
+}
