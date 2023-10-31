@@ -1,0 +1,45 @@
+name: "Terraform Apply"
+
+on:
+  push:
+    branches: [main]
+  #workflow_dispatch:
+
+
+env:
+  TF_CLOUD_ORGANIZATION: "${{ vars.TERRAFORM_CLOUD_ORG }}"
+  TF_API_TOKEN: "${{ secrets.TF_API_TOKEN }}"
+  TF_WORKSPACE: "${{ vars.TERRAFORM_CLOUD_WORKSPACE }}"
+  TF_CONFIG_DIRECTORY: "./terraform/"
+
+jobs:
+  terraform_apply:
+    name: "Terraform Apply"
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Upload Configuration
+        uses: hashicorp/tfc-workflows-github/actions/upload-configuration@v1.0.4
+        id: upload-config
+        with:
+          workspace: ${{ env.TF_WORKSPACE }}
+          directory: ${{ env.TF_CONFIG_DIRECTORY }}
+
+      - name: Create Run
+        uses: hashicorp/tfc-workflows-github/actions/create-run@v1.0.4
+        id: create-run
+        with:
+          workspace: ${{ env.TF_WORKSPACE }}
+          configuration_version: ${{ steps.upload-config.outputs.configuration_version_id }}
+
+      - name: Apply Run
+        uses: hashicorp/tfc-workflows-github/actions/apply-run@v1.0.4
+        if: fromJSON(steps.create-run.outputs.payload).data.attributes.actions.IsConfirmable
+        id: apply-run
+        with:
+          run: ${{ steps.create-run.outputs.run_id }}
+          comment: "Apply Run from GitHub Actions CI ${{ github.sha }}"
