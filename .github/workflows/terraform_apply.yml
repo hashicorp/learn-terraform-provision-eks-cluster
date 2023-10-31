@@ -10,7 +10,7 @@ env:
   TF_CLOUD_ORGANIZATION: "${{ vars.TERRAFORM_CLOUD_ORG }}"
   TF_API_TOKEN: "${{ secrets.TF_API_TOKEN }}"
   TF_WORKSPACE: "${{ vars.TERRAFORM_CLOUD_WORKSPACE }}"
-  TF_CONFIG_DIRECTORY: "./terraform/"
+  TF_CONFIG_DIRECTORY: "./"
 
 jobs:
   terraform_apply:
