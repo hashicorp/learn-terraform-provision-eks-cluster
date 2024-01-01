@@ -3,6 +3,8 @@
 
 provider "aws" {
   region = var.region
+    access_key = var.access_key
+    secret_key = var.secret_key
 }
 
 # Filter out local zones, which are not currently supported 
@@ -30,10 +32,10 @@ module "vpc" {
   name = "education-vpc"
 
   cidr = "10.0.0.0/16"
-  azs  = slice(data.aws_availability_zones.available.names, 0, 3)
+  azs  = slice(data.aws_availability_zones.available.names, 0, 2)
 
-  private_subnets = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
-  public_subnets  = ["10.0.4.0/24", "10.0.5.0/24", "10.0.6.0/24"]
+  private_subnets = ["10.0.1.0/24", "10.0.2.0/24"]
+  public_subnets  = ["10.0.4.0/24", "10.0.5.0/24"]
 
   enable_nat_gateway   = true
   single_nat_gateway   = true
@@ -68,20 +70,9 @@ module "eks" {
 
   eks_managed_node_groups = {
     one = {
-      name = "node-group-1"
+      name = "node-group"
 
-      instance_types = ["t3.small"]
-
-      min_size     = 1
-      max_size     = 3
-      desired_size = 2
-    }
-
-    two = {
-      name = "node-group-2"
-
-      instance_types = ["t3.small"]
-
+      instance_types = ["t2.micro"]
       min_size     = 1
       max_size     = 2
       desired_size = 1
