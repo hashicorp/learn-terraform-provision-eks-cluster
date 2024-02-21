@@ -58,6 +58,7 @@ module "eks" {
   cluster_version = "1.29"
 
   cluster_endpoint_public_access = true
+  enable_cluster_creator_admin_permissions = true
 
   cluster_addons = {
     aws-ebs-csi-driver = {
