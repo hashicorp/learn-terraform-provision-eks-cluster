@@ -25,7 +25,7 @@ resource "random_string" "suffix" {
 
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "5.0.0"
+  version = "5.8.1"
 
   name = "education-vpc"
 
@@ -52,7 +52,7 @@ module "vpc" {
 
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
-  version = "20.2.1"
+  version = "20.8.5"
 
   cluster_name    = local.cluster_name
   cluster_version = "1.29"
@@ -62,7 +62,7 @@ module "eks" {
 
   cluster_addons = {
     aws-ebs-csi-driver = {
-      addon_version            = "v1.20.0-eksbuild.1"
+      addon_version            = "v1.30.0-eksbuild.1"
       service_account_role_arn = module.irsa-ebs-csi.iam_role_arn
     }
   }
@@ -106,7 +106,7 @@ data "aws_iam_policy" "ebs_csi_policy" {
 
 module "irsa-ebs-csi" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
-  version = "4.7.0"
+  version = "5.39.0"
 
   create_role                   = true
   role_name                     = "AmazonEKSTFEBSCSIRole-${module.eks.cluster_name}"
