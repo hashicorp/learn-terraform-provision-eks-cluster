@@ -60,7 +60,6 @@ module "eks" {
 
   cluster_addons = {
     aws-ebs-csi-driver = {
-      addon_version            = "v1.30.0-eksbuild.1"
       service_account_role_arn = module.irsa-ebs-csi.iam_role_arn
     }
   }
